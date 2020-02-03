@@ -1,13 +1,24 @@
-﻿Public Class Form1
+﻿
+' Created by Some Guy
+' Re-wrote & designed by Nicholas Altee
+' VB.NET 2 Maintenance Project
+'
+' 01/31/2020
 
+
+Public Class Form1
+
+    ' Create keys.
     Dim silverKey = False
     Dim goldenKey = False
 
+    ' Setup timer
     Dim minutes = 0
     Dim seconds = 0
 
     Dim timer = 0
 
+    ' Play Button
     Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
         MsgBox("So, the objective of the game is to find the golden key and to escape Clappy's Hell House.")
         MsgBox("Complete a very short series of puzzles in order to escape! Good luck!")
@@ -19,14 +30,17 @@
 
     End Sub
 
+    ' Window
     Private Sub wind_Click(sender As Object, e As EventArgs) Handles wind.Click
         TabControl1.SelectedTab = Window
     End Sub
 
+    ' Top Drawer
     Private Sub dwrTop_Click(sender As Object, e As EventArgs) Handles dwrTop.Click
         MsgBox("There appears to be nothing here...? Perhaps it is somewhere else.")
     End Sub
 
+    ' Bottom Drawer
     Private Sub dwrBottom_Click(sender As Object, e As EventArgs) Handles dwrBottom.Click
         If silverKey = True Then
             If goldenKey = True Then
@@ -40,6 +54,7 @@
         End If
     End Sub
 
+    ' Door
     Private Sub door_Click(sender As Object, e As EventArgs) Handles door.Click
         If goldenKey = True Then
             door.Dispose()
@@ -50,6 +65,7 @@
         End If
     End Sub
 
+    ' Ends the game, does jumpscare.
     Private Sub completeGame()
         gameTimer.Enabled = False
         MsgBox("Congratulations, you escaped Clappy!")
@@ -59,6 +75,7 @@
         Me.Close()
     End Sub
 
+    ' Jumpscare
     Private Sub scare()
         TabControl1.SelectedTab = Screamer
         My.Computer.Audio.Stop()
@@ -66,6 +83,7 @@
     End Sub
 
     ' Credit to @Ali on StackOverFlow for the #wait function.
+    ' Would not be able to do jumpscare without this code.
     Public Sub wait(ByVal seconds As Single)
         Static start As Single
         start = Microsoft.VisualBasic.Timer()
@@ -74,6 +92,7 @@
         Loop
     End Sub
 
+    ' Safe
     Private Sub safe_Click(sender As Object, e As EventArgs) Handles safe.Click
         Dim code As String
         code = InputBox("[SAFE]: What is the code, User?")
@@ -87,19 +106,23 @@
 
     End Sub
 
+    ' Back Button
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         TabControl1.SelectedTab = South
     End Sub
 
+    ' Updates timer
     Private Sub updateTimer()
 
         timer += 1
 
+        ' Update minutes
         If seconds = 60 Then
             seconds = 0
             minutes += 1
         End If
 
+        ' Jumpscare around when song ends.
         If timer = 95 Then
             scare()
         End If
@@ -112,10 +135,15 @@
 
     End Sub
 
+    ' Timer 
     Private Sub gameTimer_Tick(sender As Object, e As EventArgs) Handles gameTimer.Tick
         seconds += 1
         updateTimer()
     End Sub
+
+
+    ' All of these are selecting different tabs.
+
 
     Private Sub N_S_Click(sender As Object, e As EventArgs) Handles N_S.Click
         TabControl1.SelectedTab = South
